@@ -1,0 +1,22 @@
+---
+# tasks file for element
+
+- name: Add element.io key for the repositories from URL
+  ansible.builtin.apt_key:
+    url: https://packages.element.io/debian/element-io-archive-keyring.gpg
+    state: present
+
+- name: Set up element.io repository
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.element.io/debian/ default main
+    filename: element-io
+    state: present
+
+- name: Install Linux Element Desktop
+  ansible.builtin.apt:
+    name:
+      - element-desktop
+    update_cache: true
+    state: present
+
+...
